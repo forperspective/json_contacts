@@ -10,6 +10,7 @@ This ReadMe Guideline
 * php artisan migrate --seed
 * php artisan queue:work
 * php artisan storage:link
+* change QUEUE_DRIVER=database in .env files
 
 ### - If need clear cache
 
