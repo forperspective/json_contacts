@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * By Mustafa Gamal
+ */
+
 namespace App;
 
 
@@ -15,7 +19,8 @@ class Contact extends Model
 
     protected $fillable = [
         'names',
-        'hits'
+        'hits',
+        'lang'
     ];
 
 }

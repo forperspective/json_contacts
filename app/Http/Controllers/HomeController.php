@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * By Mustafa Gamal
+ */
+
 namespace App\Http\Controllers;
 
 use App\Contact;
@@ -9,8 +13,7 @@ class HomeController extends Controller
 {
     public function home($value='')
     {
-        $services=Contact::get();
-    	return view('welcome',["services"=>$services]);
+    	return view('welcome');
     }
     public function YourhomePage($value='')
     {

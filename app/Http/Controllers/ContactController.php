@@ -1,11 +1,16 @@
 <?php
 
+/**
+ * By Mustafa Gamal
+ */
+
 namespace App\Http\Controllers;
 
 use App\Contact;
 use App\Jobs\TranslateContactQueue;
 use Dedicated\GoogleTranslate\Translator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Sentinel;
 use Validator;
@@ -53,21 +58,31 @@ class ContactController extends Controller
                 ->withErrors($this->validator($request))
                 ->withInput();
         }
-
-        //make sure you run "php artisan storage:link"
         $document = $request->file('document');
 
-        $extension = $document->getClientOriginalExtension();
-        $file=$document->getFilename().'.'.$extension;
-        Storage::disk('public')->put($document->getFilename().'.'.$extension,  File::get($document));
+        try{
 
-        //there is implementation for driver s3
-        $url=Storage::disk("public")->url($document->getFilename().'.'.$extension);
-        $path = storage_path('app/public/'.$document->getFilename().'.'.$extension);
-        //queue for insert data if it huge this run in background
-        //need run command "php artisan queue:work"
-        TranslateContactQueue::dispatch($path);
-        return redirect()->route('contact.index');
+
+            $extension = $document->getClientOriginalExtension();
+            $file=$document->getFilename().'.'.$extension;
+            Storage::disk('public')->put($document->getFilename().'.'.$extension,  File::get($document));
+
+            //there is implementation for driver s3 using this package league/flysystem-aws-s3-v3
+            $url=Storage::disk("public")->url($document->getFilename().'.'.$extension);
+            $path = storage_path('app/public/'.$document->getFilename().'.'.$extension);
+
+
+            //queue for insert data if it huge this run in background
+            //need run command "php artisan queue:work"
+            TranslateContactQueue::dispatch($path);
+            return redirect()->route('contact.index');
+
+        }catch (\Exception $ex){
+            return redirect()->back()
+                ->withErrors($ex->getMessage())
+                ->withInput();
+        }
+
     }
 
     /**

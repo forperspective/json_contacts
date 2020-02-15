@@ -1,4 +1,7 @@
 <?php
+/**
+ * By Mustafa Gamal
+ */
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,6 +23,7 @@ class CreateContactsTable extends Migration
             $table->longText('names')->nullable();
             $table->integer('hits')->nullable();
             $table->string('lang')->nullable();
+            $table->collation = 'utf8_unicode_ci';
             $table->softDeletes();
             $table->timestamps();
 

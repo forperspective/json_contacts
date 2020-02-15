@@ -1,6 +1,9 @@
 <?php
 
 /**
+ * By Mustafa Gamal
+ */
+/**
  * Part of the Sentinel package.
  *
  * NOTICE OF LICENSE
@@ -35,6 +38,7 @@ class MigrationCartalystSentinel extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('code');
             $table->boolean('completed')->default(0);
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
@@ -45,6 +49,7 @@ class MigrationCartalystSentinel extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('code');
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -56,6 +61,7 @@ class MigrationCartalystSentinel extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('code');
             $table->boolean('completed')->default(0);
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
@@ -67,6 +73,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('slug');
             $table->string('name');
             $table->text('permissions')->nullable();
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -76,6 +83,7 @@ class MigrationCartalystSentinel extends Migration
         Schema::create('role_users', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
+            $table->collation = 'utf8_unicode_ci';
             $table->nullableTimestamps();
 
             $table->engine = 'InnoDB';
@@ -87,6 +95,7 @@ class MigrationCartalystSentinel extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('type');
             $table->string('ip')->nullable();
+            $table->collation = 'utf8_unicode_ci';
             $table->timestamps();
 
             $table->engine = 'InnoDB';
@@ -102,6 +111,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('remember_token', 100)->nullable();
+            $table->collation = 'utf8_unicode_ci';
             $table->softDeletes();
             $table->timestamps();
 
